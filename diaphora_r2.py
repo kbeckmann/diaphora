@@ -209,7 +209,11 @@ def GetCommentEx(x, type):
   return r2.cmd("CC.@ %s"%(x))
 
 def diaphora_decode(x):
-  decoded_size = int(r2.cmd("ao~size[1]"))
+  r2_cmd_output = r2.cmd("ao~size[1]")
+  if r2_cmd_output == "":
+      decoded_size = 1
+  else:
+      decoded_size = int(r2_cmd_output)
   #opinfo = r2.cmdj("aoj")
   ins = {'Operands': []}
   #ins["Operands"] = [ ] # XXX
@@ -295,7 +299,10 @@ def GetDisasm(x):
   return r2.cmd('pi 1 @ %s'%(x))
 
 def ItemSize(x):
-  return int(r2.cmd('ao~size[1]'), 16)
+  r2_cmd_output = r2.cmd('ao~size[1]')
+  if r2_cmd_output == '':
+      return 1
+  return int(r2_cmd_output, 16)
 #-----------------------------------------------------------------------
 def askyn_c(a, b):
   # It doesn't make any sense to me for the r2 exporter. askyn_c is used
